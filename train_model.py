@@ -33,6 +33,9 @@ model = create_nn_model()
 target_model = create_nn_model()
 #model.summary()
 
+# define the loss function and optimization algorithm
+model.compile(loss='mse', optimizer='adam')
+
 def one_hot_encode(action):
     one_hot = np.zeros(3)
     one_hot[int(action)] = 1
