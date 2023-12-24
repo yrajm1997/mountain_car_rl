@@ -1,0 +1,6 @@
+numpy
+tensorflow
+#keras
+swig
+gymnasium
+gymnasium[box2d]
