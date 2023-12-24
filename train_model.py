@@ -55,9 +55,9 @@ def value_function_nn(state, model):
 alpha = 0.05        # Learning rate: Q value update step size
 gamma = 0.99        # Discount factor: the factor at which the Q-Value gets decremented after each cycle
 epsilon = 0.15       # epsilon to be used by greedy policy
-episodes = 2  #2000
-max_steps_per_episode = 300 #901
-steps_per_update = 50 #300
+episodes = 2000
+max_steps_per_episode = 1000
+steps_per_update = 200
 
 
 # For plotting metrics
@@ -120,10 +120,10 @@ for i in range(1, episodes + 1):
         if count > max_steps_per_episode:
             break
 
-    #if epsilon > 0.08:
-    #    epsilon = epsilon - 2/episodes
-    #else:
-    #    epsilon = 0.08
+    if epsilon > 0.08:
+        epsilon = epsilon - 2/episodes
+    else:
+        epsilon = 0.08
 
     all_epochs_nn.append(epochs)
     all_rewards_nn.append(rewards)
@@ -135,9 +135,9 @@ for i in range(1, episodes + 1):
         print(" ")
         print(f"Episode: {i}/{episodes}, Epsilon: {np.round(epsilon,2)}, Reward: {np.round(rewards,2)}, Avg_score: {np.mean(all_rewards_nn[-100:]).round(2)}")
     
-    #if i % 1000 == 0:
-    target_model.save_weights(f'trained_model/trained_weights_episode_{i}.h5')
-    target_model.save_weights(f'trained_model/trained_json_weights_episode_{i}.json')
+    if i % 1000 == 0:
+        target_model.save_weights(f'trained_model/trained_weights_episode_{i}.h5')
+        target_model.save_weights(f'trained_model/trained_json_weights_episode_{i}.json')
 
 print("Training finished.\n")
 
